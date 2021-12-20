@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-// import 'package:google_signin_example/widget/background_painter.dart';
-import 'package:electronic_shop/widget/google_signup_button_widget.dart';
+import 'package:electronic_shop/widget/authentication_widgets/google_signup_button_widget.dart';
 
 class SignUpWidget extends StatelessWidget {
   @override

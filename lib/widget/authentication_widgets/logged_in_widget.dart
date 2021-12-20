@@ -20,31 +20,32 @@ class LoggedInWidget extends StatelessWidget {
         children: [
           const Text(
             'Logged In',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white,fontSize: 18),
           ),
           const SizedBox(height: 8),
           CircleAvatar(
-            maxRadius: 25,
+            maxRadius: 35,
             backgroundImage: NetworkImage(user!.photoURL!),
           ),
           const SizedBox(height: 8),
           Text(
             'Name: ' + user.displayName!,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white,fontSize: 18),
           ),
           const SizedBox(height: 8),
           Text(
             'Email: ' + user.email!,
-            style: const TextStyle(color: Colors.white),
+            style:TextStyle(color: Colors.white,fontSize: 18),
           ),
           const SizedBox(height: 8),
           ElevatedButton(
             onPressed: () {
               final provider =
-              Provider.of<GoogleSignInProvider>(context, listen: false);
-              provider.logout();
+                Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.logout();
             },
-            child: const Text('Logout'),
+            child:  Text('Logout',
+                style: TextStyle(fontSize: 16)),
           )
         ],
       ),

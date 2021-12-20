@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:electronic_shop/page/home_page.dart';
+import 'package:electronic_shop/screens/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'Google SignIn';
+  const MyApp({Key? key}) : super(key: key);
+
+  static const String title = 'Google SignIn';
 
   @override
   Widget build(BuildContext context) => MaterialApp(
