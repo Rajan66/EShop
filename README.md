@@ -1,2 +1,2 @@
 # Electronic Shop
-An app where a user can view and buy electronic products.
+An app where an user can view and buy electronic products.
