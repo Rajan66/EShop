@@ -1,13 +1,9 @@
-import 'package:electronic_shop/config/animations/costom_animations.dart';
-import 'package:electronic_shop/constants/app_constants.dart';
-import 'package:electronic_shop/screens/custom_bottom_navigation_bar.dart';
-import 'package:electronic_shop/widget/authentication_widgets/logged_in_widget.dart';
+import 'package:electronic_shop/widget/home_screen_widgets/components.dart';
 import 'package:electronic_shop/widget/home_screen_widgets/categories.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:electronic_shop/provider/google_sign_in.dart';
-import 'package:electronic_shop/widget/authentication_widgets/logged_in_widget.dart';
 import 'package:electronic_shop/widget/authentication_widgets/sign_up_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +25,7 @@ class HomePage extends StatelessWidget {
             return buildLoading();
           } else if (snapshot.hasData) {
             return DefaultTabController(
-                length: 5,child: CostomAnimations(
+                length: 5,child: Components(
                   home:Categories()));
           } else {
             return SignUpWidget();
