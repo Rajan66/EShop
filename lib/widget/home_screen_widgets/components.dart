@@ -1,4 +1,4 @@
-import 'package:electronic_shop/config/assets/assets.dart';
+import 'package:electronic_shop/items/api_data.dart';
 import 'package:electronic_shop/widget/authentication_widgets/logged_in_widget.dart';
 import 'package:electronic_shop/widget/home_screen_widgets/categories.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +8,7 @@ import 'package:electronic_shop/constants/app_constants.dart';
 class Components extends StatefulWidget {
   final Widget home;
 
-  Components({required this.home});
+  const Components({Key? key, required this.home, Column}) : super(key: key);
 
   @override
   _ComponentsState createState() => _ComponentsState();
@@ -19,41 +19,37 @@ class _ComponentsState extends State<Components> {
 
   final tabs = [
     Categories(),
-    Center(child: Text("fart")),
-    LoggedInWidget()];
+    DataFromAPI(),
+    LoggedInWidget()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kAccentColor,
-        title: Text("E-Shop",
-            style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic)),
+        iconTheme: IconThemeData(color: Colors.black87),
+        toolbarHeight: 52,
+        backgroundColor: Colors.white,
         elevation: 0,
       ),
+      drawer: LoggedInWidget(),
       body: tabs[_currentIndex],
-      backgroundColor: kAccentColor,
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 5,
         currentIndex: _currentIndex,
-        backgroundColor: kAccentColor,
-        selectedItemColor: Colors.white,
-        items: [
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.deepOrange,
+        iconSize: 28,
+        items: const [
           BottomNavigationBarItem(
-            icon: kProductIcon,
-            title: Text('Products'),
-            backgroundColor: kAccentColor,
+            icon: Icon(Icons.phonelink_rounded),
+            label: kProductName,
           ),
           BottomNavigationBarItem(
-              icon: kCartIcon,
-              title: Text('Cart'),
-              backgroundColor: kAccentColor),
-          BottomNavigationBarItem(
-              icon: kProfileIcon,
-              title: Text('Profile'),
-              backgroundColor: kAccentColor)
+            icon: Icon(Icons.shopping_cart),
+            label: kCartName,
+          ),
         ],
         onTap: (index) {
           setState(() {
