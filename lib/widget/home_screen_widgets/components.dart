@@ -20,7 +20,6 @@ class _ComponentsState extends State<Components> {
   final tabs = [
     Categories(),
     DataFromAPI(),
-    LoggedInWidget()
   ];
 
   @override

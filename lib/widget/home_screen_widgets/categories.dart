@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:electronic_shop/config/assets/assets.dart';
+import 'package:electronic_shop/constants/app_constants.dart';
 import 'package:electronic_shop/items/items.dart';
+import 'package:electronic_shop/widget/home_screen_widgets/item_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:electronic_shop/constants/app_constants.dart';
-import 'package:electronic_shop/items/api_data.dart';
 import 'package:flutter/services.dart';
 
 class Categories extends StatefulWidget {
@@ -14,7 +13,6 @@ class Categories extends StatefulWidget {
   @override
   _CategoriesState createState() => _CategoriesState();
 }
-
 
 class _CategoriesState extends State<Categories> {
   List<String> categories = [
@@ -40,8 +38,6 @@ class _CategoriesState extends State<Categories> {
     String jsonString = await _loadData();
     final jsonResponse = json.decode(jsonString);
     Shop shop = Shop.fromJson(jsonResponse);
-    // print("${shop.data?.product[0].id} - ${shop.data?.product[0].name}");
-    // print('${shop.data?.product.length}');
 
     return shop;
   }
@@ -83,91 +79,28 @@ class _CategoriesState extends State<Categories> {
                     } else if (data.hasData) {
                       var items = data.data as Shop;
                       return GridView.builder(
-                            itemCount: items == null ? 0 : items.data?.product.length,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.55,
-                                crossAxisSpacing: 8,
-                                mainAxisSpacing: 8),
-                            itemBuilder: (context, index) {
-                              return Container(
-                                width: 200,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
+                          itemCount:
+                              items == null ? 0 : items.data?.product.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.55,
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 8),
+                          itemBuilder: (context, index) {
+                            return Container(
+                                //TODO The item card looks shit and isn't consistent in different screen sizes.
                                 decoration: BoxDecoration(
                                     color: Colors.lightBlueAccent,
                                     borderRadius: BorderRadius.circular(16)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: kDefaultPadding),
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: kRem,
-                                              fit: BoxFit.scaleDown),
-                                          shape: BoxShape.rectangle),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 7),
-                                      child: Text(
-                                          "${items.data?.product[index].name}", style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18
-                                      ),),
-                                    ),
-                                    SizedBox(
-                                      height: 6,
-                                      width: 10,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 7),
-                                      child: Text("Price: ${items.data?.product[index]
-                                          .price}",style: TextStyle(
-                                        fontSize: 15
-                                      ),),
-                                    ),
-                                    SizedBox(
-                                      height: 6,
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.fromLTRB(
-                                              0, 7, 0, 0),
-                                          child: Text(
-                                              "Stock: ${items.data?.product[index]
-                                                  .stock}",style: TextStyle(
-                                            fontSize: 14
-                                          ),),
-                                        ),
-                                        Container(
-                                          alignment: Alignment.topRight,
-                                          padding: EdgeInsets.fromLTRB(
-                                              0, 0, 0, 0),
-                                          child: Icon(Icons.shopping_cart),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-
-                              );
-                            });
-                    } else{
+                                child: ItemContainer(items, index));
+                          });
+                    } else {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
                     }
-                  }
-             )
-          ),
+                  })),
         ),
       ],
     );
@@ -197,7 +130,7 @@ class _CategoriesState extends State<Categories> {
               height: 2,
               width: 30,
               color:
-              selectedIndex == index ? Colors.black87 : Colors.transparent,
+                  selectedIndex == index ? Colors.black87 : Colors.transparent,
             )
           ],
         ),
@@ -205,87 +138,3 @@ class _CategoriesState extends State<Categories> {
     );
   }
 }
-//
-// class ItemCard extends StatelessWidget {
-//   const ItemCard({
-//     Key? key,
-//   }) : super(key: key);
-//
-//
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: FutureBuilder(
-//             future: loadData(),
-//             builder: (context, data) {
-//               if (data.hasError) {
-//                 return Center(child: Text("${data.error}"));
-//               } else if (data.hasData) {
-//                 var items = data.data as Shop;
-//                 return ListView.builder(
-//                     itemBuilder: (context, index) {
-//                       return Container(
-//                         width: 200,
-//                         padding: EdgeInsets.symmetric(horizontal: 10),
-//                         decoration: BoxDecoration(
-//                             color: Colors.lightBlueAccent,
-//                             borderRadius: BorderRadius.circular(16)),
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: <Widget>[
-//                             Container(
-//                               padding: const EdgeInsets.symmetric(
-//                                   vertical: kDefaultPadding),
-//                               height: 260,
-//                               decoration: BoxDecoration(
-//                                   image: DecorationImage(
-//                                       image: kRem, fit: BoxFit.scaleDown),
-//                                   shape: BoxShape.rectangle),
-//                             ),
-//                             SizedBox(
-//                               height: 10,
-//                               width: 10,
-//                             ),
-//                             Container(
-//                               padding: EdgeInsets.symmetric(vertical: 7),
-//                               child: Text("${items.data?.product[index].name}"),
-//                             ),
-//                             SizedBox(
-//                               height: 10,
-//                               width: 10,
-//                             ),
-//                             Container(
-//                               padding: EdgeInsets.symmetric(vertical: 7),
-//                               child: Text("${items.data?.product[index].price}"),
-//                             ),
-//                             SizedBox(
-//                               height: 10,
-//                               width: 10,
-//                             ),
-//                             Column(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               children: [
-//                                 Container(
-//                                   padding: EdgeInsets.fromLTRB(0, 7, 0, 0),
-//                                   child: Text("${items.data?.product[index].stock}"),
-//                                 ),
-//                                 Container(
-//                                   alignment: Alignment.topRight,
-//                                   padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-//                                   child: Icon(Icons.shopping_cart),
-//                                 )
-//                               ],
-//                             )
-//                           ],
-//                         ),
-//                       );
-//                     });
-//               } else {
-//                 return Center(
-//                   child: CircularProgressIndicator(),
-//                 );
-//               }
-//             }));
-//   }
-// }
