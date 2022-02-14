@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:electronic_shop/items/api_data.dart';
 import 'package:electronic_shop/constants/app_constants.dart';
 import 'package:electronic_shop/items/items.dart';
 import 'package:electronic_shop/widget/home_screen_widgets/item_container.dart';
@@ -16,6 +16,7 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   List<String> categories = [
+    "All",
     "Laptop",
     "Mobile",
     "Watch",
@@ -48,17 +49,7 @@ class _CategoriesState extends State<Categories> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Text(
-              "Categories",
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.black87),
-            )),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, kDefaultPadding),
           child: SizedBox(
             height: 25,
             child: ListView.builder(
@@ -73,25 +64,28 @@ class _CategoriesState extends State<Categories> {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: FutureBuilder(
                   future: loadData(),
+                  //TODO apidata.loaddata() how to use a function of an another class without inheriting
                   builder: (context, data) {
                     if (data.hasError) {
                       return Center(child: Text("${data.error}"));
                     } else if (data.hasData) {
                       var items = data.data as Shop;
+
                       return GridView.builder(
                           itemCount:
                               items == null ? 0 : items.data?.product.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  childAspectRatio: 0.55,
+                                  childAspectRatio: 0.50,
                                   crossAxisSpacing: 8,
                                   mainAxisSpacing: 8),
                           itemBuilder: (context, index) {
                             return Container(
                                 //TODO The item card looks shit and isn't consistent in different screen sizes.
+                              clipBehavior: Clip.hardEdge,
                                 decoration: BoxDecoration(
-                                    color: Colors.lightBlueAccent,
+                                    color: whiteColor,
                                     borderRadius: BorderRadius.circular(16)),
                                 child: ItemContainer(items, index));
                           });
@@ -138,3 +132,13 @@ class _CategoriesState extends State<Categories> {
     );
   }
 }
+// else {
+// return Center(
+// child: Text(
+// "Oops... No items here!!",
+// style: TextStyle(
+// fontSize: 20,
+// fontWeight: FontWeight.bold,
+// ),
+// ));
+// }

@@ -37,6 +37,7 @@ class _DataFromAPIState extends State<DataFromAPI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         body: FutureBuilder(
       future: loadData(),
       builder: (context, data) {
@@ -48,7 +49,7 @@ class _DataFromAPIState extends State<DataFromAPI> {
               itemCount: items == null ? 0 : items.data?.product.length,
               itemBuilder: (context, index) {
                 return Center(
-                    child: Text('${items.data?.product[index].name}'));
+                    child: Text('${items.data?.product[index].category[1]}'));
               });
         } else{
             return Center(

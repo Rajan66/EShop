@@ -1,6 +1,5 @@
-import 'package:electronic_shop/config/assets/assets.dart';
-import 'package:electronic_shop/constants/app_constants.dart';
 import 'package:electronic_shop/items/items.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -17,10 +16,13 @@ class ItemContainer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-
           height: 200,
           decoration: BoxDecoration(
-              image: DecorationImage(image: kRem, fit: BoxFit.cover),
+
+              image: DecorationImage(
+                  image: NetworkImage('https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg'),
+                  fit: BoxFit.fill
+              ),
               shape: BoxShape.rectangle),
         ),
         Container(
@@ -32,10 +34,9 @@ class ItemContainer extends StatelessWidget {
         ),
         SizedBox(
           height: 6,
-          width: 10,
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 7,horizontal: 10),
+          padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
           child: Text(
             "Price: ${shop.data?.product[index].price}",
             style: TextStyle(fontSize: 15),

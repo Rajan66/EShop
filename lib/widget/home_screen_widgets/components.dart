@@ -25,37 +25,40 @@ class _ComponentsState extends State<Components> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black87),
-        toolbarHeight: 52,
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black87),
+          toolbarHeight: 52,
+          backgroundColor: Colors.white,
+          elevation: 0,
+        ),
+        drawer: LoggedInWidget(),
+        body: tabs[_currentIndex],
         backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      drawer: LoggedInWidget(),
-      body: tabs[_currentIndex],
-      backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 5,
-        currentIndex: _currentIndex,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.deepOrange,
-        iconSize: 28,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.phonelink_rounded),
-            label: kProductName,
+        bottomNavigationBar: SizedBox(
+          height: 50,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            elevation: 5,
+            currentIndex: _currentIndex,
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.deepOrange,
+            iconSize: 20,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.phonelink_rounded),
+                label: kProductName,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                label: kCartName,
+              ),
+            ],
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: kCartName,
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
-    );
+        ));
   }
 }
