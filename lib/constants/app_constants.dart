@@ -9,5 +9,6 @@ const kTextLightColor = Color(0xFFACACAC);
 const String kProductName = "Products";
 const String kCartName = "Cart";
 const String kProfileName = "Profile";
+const NetworkImage networkImage = NetworkImage('https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg');
 
 const kDefaultPadding = 20.0;

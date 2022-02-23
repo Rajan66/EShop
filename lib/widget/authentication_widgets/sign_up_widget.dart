@@ -13,17 +13,20 @@ class SignUpWidget extends StatelessWidget {
   Widget buildSignUp() => Column(
         children: [
           Spacer(),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              width: 175,
-              child: Text(
-                'Welcome Back To Electronic Shop',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                width: 175,
+                child: Text(
+                  'Welcome To Electronic Shop',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

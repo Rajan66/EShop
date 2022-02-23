@@ -14,44 +14,48 @@ class LoggedInWidget extends StatelessWidget {
     return Drawer(
       // alignment: Alignment.center,
       // color: Colors.white60,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(height: 16),
-          DrawerHeader(
-            padding: EdgeInsets.all(8.0),
-
-            child: CircleAvatar(
-              maxRadius: 75,
-              backgroundImage: NetworkImage(user!.photoURL!),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 16),
+            DrawerHeader(
+              padding: EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                maxRadius: 75,
+                backgroundImage: NetworkImage(user!.photoURL!),
+              ),
             ),
-          ),
-          // const Text(
-          //   'Logged In',
-          //   style: TextStyle(color: Colors.black87, fontSize: 18),
-          // ),
-          const SizedBox(height: 16),
-          const SizedBox(height: 8),
-          Text(
-            'Name: ' + user.displayName!,
-            style: TextStyle(color: Colors.black87, fontSize: 18),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Email: ' + user.email!,
-            style: TextStyle(color: Colors.black87, fontSize: 18),
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: () {
-              final provider =
-                  Provider.of<GoogleSignInProvider>(context, listen: false);
-              provider.logout();
-            },
-            child: Text('Logout', style: TextStyle(fontSize: 16)),
-          )
-        ],
+            // const Text(
+            //   'Logged In',
+            //   style: TextStyle(color: Colors.black87, fontSize: 18),
+            // ),
+            const SizedBox(height: 16),
+            const SizedBox(height: 8),
+            Container(
+              child: Text(
+                'Name: ' + user.displayName!,
+                style: TextStyle(color: Colors.black87, fontSize: 18),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Email: ' + user.email!,
+              style: TextStyle(color: Colors.black87, fontSize: 18),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.logout();
+              },
+              child: Text('Logout', style: TextStyle(fontSize: 16)),
+            )
+          ],
+        ),
       ),
     );
   }

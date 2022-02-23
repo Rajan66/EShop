@@ -31,7 +31,10 @@ class _ComponentsState extends State<Components> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        drawer: LoggedInWidget(),
+        drawer: Container(
+          width: 350,
+          child: LoggedInWidget(),
+        ),
         body: tabs[_currentIndex],
         backgroundColor: Colors.white,
         bottomNavigationBar: SizedBox(
@@ -43,6 +46,7 @@ class _ComponentsState extends State<Components> {
             backgroundColor: Colors.white,
             selectedItemColor: Colors.deepOrange,
             iconSize: 20,
+            selectedFontSize: 12,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.phonelink_rounded),

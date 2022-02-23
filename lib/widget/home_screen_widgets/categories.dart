@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:electronic_shop/items/api_data.dart';
 import 'package:electronic_shop/constants/app_constants.dart';
 import 'package:electronic_shop/items/items.dart';
+import 'package:electronic_shop/widget/home_screen_widgets/get_category.dart';
 import 'package:electronic_shop/widget/home_screen_widgets/item_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,13 @@ class _CategoriesState extends State<Categories> {
     "Keyboard",
     "Headset"
   ];
+  int all = 0;
+  int laptop = 0;
+  int mobile = 0;
+  int watch = 0;
+  int keyboard = 0;
+  int headset = 0;
+
   int selectedIndex = 0;
 
   @override
@@ -70,25 +78,10 @@ class _CategoriesState extends State<Categories> {
                       return Center(child: Text("${data.error}"));
                     } else if (data.hasData) {
                       var items = data.data as Shop;
+                      categoryCounter(items, categories[selectedIndex]);
 
-                      return GridView.builder(
-                          itemCount:
-                              items == null ? 0 : items.data?.product.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 0.50,
-                                  crossAxisSpacing: 8,
-                                  mainAxisSpacing: 8),
-                          itemBuilder: (context, index) {
-                            return Container(
-                                //TODO The item card looks shit and isn't consistent in different screen sizes.
-                              clipBehavior: Clip.hardEdge,
-                                decoration: BoxDecoration(
-                                    color: whiteColor,
-                                    borderRadius: BorderRadius.circular(16)),
-                                child: ItemContainer(items, index));
-                          });
+                      // print(categories[selectedIndex]);
+                      return GetCategory(categories[selectedIndex], items);
                     } else {
                       return Center(
                         child: CircularProgressIndicator(),
@@ -131,14 +124,34 @@ class _CategoriesState extends State<Categories> {
       ),
     );
   }
+
+  categoryCounter(items, category) {
+    int i = 0;
+    int? length = items.data?.product.length;
+    while (i < length!-1) {
+      if ("Category.LAPTOP" == items.data?.product[i].category[1].toString()) {
+        laptop++;
+      } else if ("Cateogry.MOBILE" == items.data?.product[i].category[1].toString()) {
+        mobile++;
+      } else if ("Category.KEYBOARD" == items.data?.product[i].category[1].toString()) {
+        keyboard++;
+      } else if ("Category.WATCH" == items.data?.product[i].category[1].toString()) {
+        mobile++;
+      } else if ("Category.HEADSET" == items.data?.product[i].category[1].toString()) {
+        mobile++;
+      } else {
+        all++;
+      }
+      i++;
+      print(items.data?.product[i].category[1]);
+    }
+    //TODO: move this function into get_category file
+    print("Laptop: $laptop\n"
+        "All: $laptop\n"
+        "Mobile: $mobile\n"
+        "Headset: $headset\n"
+        "Keyboard: $keyboard\n"
+        "Watch: $watch");
+  }
 }
-// else {
-// return Center(
-// child: Text(
-// "Oops... No items here!!",
-// style: TextStyle(
-// fontSize: 20,
-// fontWeight: FontWeight.bold,
-// ),
-// ));
-// }
+

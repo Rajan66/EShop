@@ -1,6 +1,7 @@
 import 'package:electronic_shop/items/items.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:electronic_shop/constants/app_constants.dart';
 
 
 class ItemContainer extends StatelessWidget {
@@ -18,9 +19,8 @@ class ItemContainer extends StatelessWidget {
         Container(
           height: 200,
           decoration: BoxDecoration(
-
               image: DecorationImage(
-                  image: NetworkImage('https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg'),
+                  image: networkImage,
                   fit: BoxFit.fill
               ),
               shape: BoxShape.rectangle),
@@ -46,20 +46,32 @@ class ItemContainer extends StatelessWidget {
           height: 6,
           width: 10,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.fromLTRB(10, 7, 0, 0),
-              child: Text(
-                "Stock: ${shop.data?.product[index].stock}",
-                style: TextStyle(fontSize: 14),
+            Expanded(
+              flex: 3,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(10, 7, 0, 0),
+                child: Text(
+                  "Stock: ${shop.data?.product[index].stock}",
+                  style: TextStyle(fontSize: 14),
+                ),
               ),
             ),
-            Container(
-              alignment: Alignment.topRight,
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Icon(Icons.shopping_cart),
+            Expanded(
+              flex: 2,
+              child: Container(
+                width: double.infinity,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.topRight,
+                padding: EdgeInsets.fromLTRB(0, 0,10 , 0),
+                child: Icon(Icons.shopping_cart),
+              ),
             )
           ],
         )
