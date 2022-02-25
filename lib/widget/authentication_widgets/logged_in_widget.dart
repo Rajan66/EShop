@@ -15,7 +15,7 @@ class LoggedInWidget extends StatelessWidget {
       // alignment: Alignment.center,
       // color: Colors.white60,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(6,0,0,0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,

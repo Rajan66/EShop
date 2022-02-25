@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:electronic_shop/constants/app_constants.dart';
 
+
 class Components extends StatefulWidget {
   final Widget home;
 
@@ -12,10 +13,12 @@ class Components extends StatefulWidget {
 
   @override
   _ComponentsState createState() => _ComponentsState();
+
 }
 
 class _ComponentsState extends State<Components> {
   int _currentIndex = 0;
+
 
   final tabs = [
     Categories(),
@@ -31,14 +34,13 @@ class _ComponentsState extends State<Components> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        drawer: Container(
-          width: 350,
-          child: LoggedInWidget(),
-        ),
+        drawer: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.75, // 75% of screen will be occupied
+          child: LoggedInWidget()),
         body: tabs[_currentIndex],
         backgroundColor: Colors.white,
         bottomNavigationBar: SizedBox(
-          height: 50,
+          height: MediaQuery.of(context).size.height * 0.08,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             elevation: 5,

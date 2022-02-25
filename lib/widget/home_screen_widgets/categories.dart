@@ -24,13 +24,6 @@ class _CategoriesState extends State<Categories> {
     "Keyboard",
     "Headset"
   ];
-  int all = 0;
-  int laptop = 0;
-  int mobile = 0;
-  int watch = 0;
-  int keyboard = 0;
-  int headset = 0;
-
   int selectedIndex = 0;
 
   @override
@@ -61,6 +54,7 @@ class _CategoriesState extends State<Categories> {
           child: SizedBox(
             height: 25,
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: categories.length,
               itemBuilder: (context, index) => buildCategory(index),
@@ -78,9 +72,6 @@ class _CategoriesState extends State<Categories> {
                       return Center(child: Text("${data.error}"));
                     } else if (data.hasData) {
                       var items = data.data as Shop;
-                      categoryCounter(items, categories[selectedIndex]);
-
-                      // print(categories[selectedIndex]);
                       return GetCategory(categories[selectedIndex], items);
                     } else {
                       return Center(
@@ -123,35 +114,6 @@ class _CategoriesState extends State<Categories> {
         ),
       ),
     );
-  }
-
-  categoryCounter(items, category) {
-    int i = 0;
-    int? length = items.data?.product.length;
-    while (i < length!-1) {
-      if ("Category.LAPTOP" == items.data?.product[i].category[1].toString()) {
-        laptop++;
-      } else if ("Cateogry.MOBILE" == items.data?.product[i].category[1].toString()) {
-        mobile++;
-      } else if ("Category.KEYBOARD" == items.data?.product[i].category[1].toString()) {
-        keyboard++;
-      } else if ("Category.WATCH" == items.data?.product[i].category[1].toString()) {
-        mobile++;
-      } else if ("Category.HEADSET" == items.data?.product[i].category[1].toString()) {
-        mobile++;
-      } else {
-        all++;
-      }
-      i++;
-      print(items.data?.product[i].category[1]);
-    }
-    //TODO: move this function into get_category file
-    print("Laptop: $laptop\n"
-        "All: $laptop\n"
-        "Mobile: $mobile\n"
-        "Headset: $headset\n"
-        "Keyboard: $keyboard\n"
-        "Watch: $watch");
   }
 }
 
