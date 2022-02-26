@@ -36,27 +36,30 @@ class _DataFromAPIState extends State<DataFromAPI> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-        body: FutureBuilder(
-      future: loadData(),
-      builder: (context, data) {
-        if (data.hasError) {
-          return Center(child: Text("${data.error}"));
-        } else if (data.hasData) {
-          var items = data.data as Shop;
-          return ListView.builder(
-              itemCount: items == null ? 0 : items.data?.product.length,
-              itemBuilder: (context, index) {
-                return Center(
-                    child: Text('${items.data?.product[index].category[1]}'));
-              });
-        } else{
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-        }
-      },
-    ));
+    return Flexible(
+      fit: FlexFit.loose,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+          body: FutureBuilder(
+        future: loadData(),
+        builder: (context, data) {
+          if (data.hasError) {
+            return Center(child: Text("${data.error}"));
+          } else if (data.hasData) {
+            var items = data.data as Shop;
+            return ListView.builder(
+                itemCount: items == null ? 0 : items.data?.product.length,
+                itemBuilder: (context, index) {
+                  return Center(
+                      child: Text('${items.data?.product[index].category[1]}'));
+                });
+          } else{
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        },
+      )),
+    );
   }
 }

@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'package:electronic_shop/items/api_data.dart';
 import 'package:electronic_shop/constants/app_constants.dart';
 import 'package:electronic_shop/items/items.dart';
 import 'package:electronic_shop/widget/home_screen_widgets/get_category.dart';
-import 'package:electronic_shop/widget/home_screen_widgets/item_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,41 +44,44 @@ class _CategoriesState extends State<Categories> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, kDefaultPadding),
-          child: SizedBox(
-            height: 25,
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              itemBuilder: (context, index) => buildCategory(index),
+    return Flexible(
+      fit: FlexFit.loose,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, kDefaultPadding),
+            child: SizedBox(
+              height: 25,
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) => buildCategory(index),
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: FutureBuilder(
-                  future: loadData(),
-                  //TODO apidata.loaddata() how to use a function of an another class without inheriting
-                  builder: (context, data) {
-                    if (data.hasError) {
-                      return Center(child: Text("${data.error}"));
-                    } else if (data.hasData) {
-                      var items = data.data as Shop;
-                      return GetCategory(categories[selectedIndex], items);
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  })),
-        ),
-      ],
+          Expanded(
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: FutureBuilder(
+                    future: loadData(),
+                    //TODO apidata.loaddata() how to use a function of an another class without inheriting
+                    builder: (context, data) {
+                      if (data.hasError) {
+                        return Center(child: Text("${data.error}"));
+                      } else if (data.hasData) {
+                        var items = data.data as Shop;
+                        return GetCategory(categories[selectedIndex], items);
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    })),
+          ),
+        ],
+      ),
     );
   }
 

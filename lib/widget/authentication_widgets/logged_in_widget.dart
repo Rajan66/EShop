@@ -41,9 +41,11 @@ class LoggedInWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
-              'Email: ' + user.email!,
-              style: TextStyle(color: Colors.black87, fontSize: 18),
+            Container(
+              child: Text(
+                'Email: ' + user.email!,
+                style: TextStyle(color: Colors.black87, fontSize: 18),
+              ),
             ),
             const SizedBox(height: 24),
             ElevatedButton(
