@@ -1,6 +1,7 @@
 import 'package:electronic_shop/config/custom/border_box.dart';
 import 'package:electronic_shop/items/api_data.dart';
 import 'package:electronic_shop/widget/authentication_widgets/logged_in_widget.dart';
+import 'package:electronic_shop/widget/home_screen_widgets/cart.dart';
 import 'package:electronic_shop/widget/home_screen_widgets/categories.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _ComponentsState extends State<Components> {
 
   final tabs = [
     Categories(),
-    DataFromAPI(),
+    Cart(),
   ];
 
   @override
@@ -54,6 +55,7 @@ class _ComponentsState extends State<Components> {
                             width: 50,
                             child: IconButton(
                               icon: Icon(Icons.menu, color: COLOR_BLACK),
+                              highlightColor: null,
                               onPressed: () {
                                 scaffoldKey.currentState?.openDrawer();
                               },

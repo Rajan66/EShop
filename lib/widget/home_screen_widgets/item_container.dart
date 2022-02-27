@@ -1,4 +1,5 @@
 import 'package:electronic_shop/items/items.dart';
+import 'package:electronic_shop/widget/home_screen_widgets/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:electronic_shop/constants/app_constants.dart';
@@ -10,6 +11,9 @@ class ItemContainer extends StatelessWidget {
   final int index;
 
   ItemContainer(this.shop,this.index);
+
+  List<Product?>? cartList =[];
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +70,18 @@ class ItemContainer extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Container(
+                height: 25,
                 alignment: Alignment.topRight,
-                padding: EdgeInsets.fromLTRB(0, 0,10 , 0),
-                child: Icon(Icons.shopping_cart),
+                padding: EdgeInsets.fromLTRB(0, 0,5 , 8),
+                child: IconButton(
+                    icon: Icon(Icons.shopping_cart),
+                  highlightColor: null,
+                  onPressed: () {
+                     cartList?.add(shop.data?.product[index]);
+                      Cart(list:cartList);
+                  },),
               ),
             )
           ],
