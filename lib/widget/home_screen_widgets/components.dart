@@ -50,8 +50,8 @@ class _ComponentsState extends State<Components> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           BorderBox(
-                            height: 55,
-                            width: 60,
+                            height: 50,
+                            width: 50,
                             child: IconButton(
                               icon: Icon(Icons.menu, color: COLOR_BLACK),
                               onPressed: () {
@@ -60,8 +60,8 @@ class _ComponentsState extends State<Components> {
                             ),
                           ),
                           BorderBox(
-                            height: 55,
-                            width: 60,
+                            height: 50,
+                            width: 50,
                             child: IconButton(
                               icon: Icon(Icons.settings, color: COLOR_BLACK),
                               onPressed: null,

@@ -23,7 +23,7 @@ class BorderBox extends StatelessWidget {
             color: COLOR_WHITE,
             borderRadius: BorderRadius.all(Radius.circular(15.0)),
             border: Border.all(color: COLOR_GREY.withAlpha(40), width: 2)),
-        padding: padding ?? const EdgeInsets.all(8.0),
+        padding: padding ?? const EdgeInsets.all(0.0),
         child: Center(child: child));
   }
 }
