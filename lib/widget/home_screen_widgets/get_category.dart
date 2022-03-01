@@ -6,35 +6,41 @@ import 'package:electronic_shop/items/items.dart';
 //Should this be stateful or stateless? The product needs to change according
 //to the category so.... STATEFUL?
 class GetCategory extends StatefulWidget {
-
   final Shop shop;
   final String category;
+
   GetCategory(this.category, this.shop, {Key? key}) : super(key: key);
+
   @override
   _GetCategoryState createState() => _GetCategoryState();
 }
 
 class _GetCategoryState extends State<GetCategory> {
+  List<Product> all = [];
+  List<Product> laptop = [];
+  List<Product> mobile = [];
+  List<Product> watch = [];
+  List<Product> keyboard = [];
+  List<Product> headset = [];
+  List<Product> currentCategory=[];
 
   int productIndex = 0;
 
-  // int i = 0;
-  // int all = 0;
-  // int laptop = 0;
-  // int mobile = 0;
-  // int watch = 0;
-  // int keyboard = 0;
-  // int headset = 0;
-  // List<int> categoryCount = [0];
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCategoryList();
+    currentCategory = List.from(keyboard);
+    print(currentCategory.length);
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return GridView.builder(
         physics: BouncingScrollPhysics(),
-        itemCount: widget.shop == null ? 0 : widget.shop.data?.product.length,
+        itemCount: currentCategory.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisExtent: 310,
@@ -46,51 +52,44 @@ class _GetCategoryState extends State<GetCategory> {
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                   color: whiteColor, borderRadius: BorderRadius.circular(16)),
-              child: ItemContainer(widget.shop, index));
+              child: ItemContainer(widget.shop,index,currentCategory)
+          );
         });
   }
 
-  Widget categoryCounter(items, index) {
-
-    int i =0;
-    while (i > 10) {
-      if ("Category.${widget.category.toUpperCase()}" ==
-          items.data?.product[index].category[1]) {
-        return ItemContainer(items, index);
-      } else {
-        print("Category.${widget.category.toUpperCase()}");
-        print("$i\n");
-        // print(items.data?.product[i].category[1]);
-        return Center(child: Text("Dog"));
+  getCategoryList() {
+    int i = 0;
+    int? length = widget.shop.data!.product.length;
+    while (i < length- 1) {
+      if ("Category.LAPTOP" ==
+          widget.shop.data?.product[i].category[1].toString()) {
+        laptop.add(widget.shop.data!.product[i]);
+        currentCategory = List.from(laptop);
+        productIndex =i;
+      } else if ("Cateogry.MOBILE" ==
+          widget.shop.data?.product[i].category[1].toString()) {
+        mobile.add(widget.shop.data!.product[i]);
+        currentCategory = List.from(laptop);
+        productIndex =i;
+      } else if ("Category.KEYBOARD" ==
+          widget.shop.data?.product[i].category[1].toString()) {
+        keyboard.add(widget.shop.data!.product[i]);
+        currentCategory = List.from(laptop);
+        productIndex =i;
+      } else if ("Category.WATCH" ==
+          widget.shop.data?.product[i].category[1].toString()) {
+        watch.add(widget.shop.data!.product[i]);
+        currentCategory = List.from(laptop);
+        productIndex =i;
+      } else if ("Category.HEADSET" ==
+          widget.shop.data?.product[i].category[1].toString()) {
+        headset.add(widget.shop.data!.product[i]);
+        currentCategory = List.from(laptop);
+        productIndex =i;
       }
+      all.add(widget.shop.data!.product[i]);
+      currentCategory = List.from(all);
+      i++;
     }
-    return Center(
-      child:CircularProgressIndicator()
-    );
-
-    // int i = 0;
-    // int? length = items.data?.product.length;
-    // while (i < length!-1) {
-    //   if ("Category.LAPTOP" == items.data?.product[i].category[1].toString()) {
-    //     laptop++;
-    //   } else if ("Cateogry.MOBILE" == items.data?.product[i].category[1].toString()) {
-    //     mobile++;
-    //   } else if ("Category.KEYBOARD" == items.data?.product[i].category[1].toString()) {
-    //     keyboard++;
-    //   } else if ("Category.WATCH" == items.data?.product[i].category[1].toString()) {
-    //     mobile++;
-    //   } else if ("Category.HEADSET" == items.data?.product[i].category[1].toString()) {
-    //     mobile++;
-    //   }
-    //   i++;
-    //   print(items.data?.product[i].category[1]);
-    // }
-    // print("Laptop: $laptop\n"
-    //     "Mobile: $mobile\n"
-    //     "Headset: $headset\n"
-    //     "Keyboard: $keyboard\n"
-    //     "Watch: $watch");
-    //
-    // categoryCount = [laptop,mobile,headset,keyboard,watch];
   }
 }

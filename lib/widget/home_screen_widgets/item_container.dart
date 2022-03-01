@@ -9,10 +9,11 @@ class ItemContainer extends StatelessWidget {
 
   final Shop shop;
   final int index;
+  final List<Product> product;
 
-  ItemContainer(this.shop,this.index);
+  ItemContainer(this.shop,this.index,this.product);
 
-  List<Product?>? cartList =[];
+  List<Product> cartList =[];
 
 
   @override
@@ -32,7 +33,7 @@ class ItemContainer extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(vertical: 7,horizontal: 10),
           child: Text(
-            "${shop.data?.product[index].name}",
+            "${product[index].name}",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
         ),
@@ -42,7 +43,7 @@ class ItemContainer extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
           child: Text(
-            "Price: ${shop.data?.product[index].price}",
+            "Price: ${product[index].price}",
             style: TextStyle(fontSize: 15),
           ),
         ),
@@ -58,7 +59,7 @@ class ItemContainer extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.fromLTRB(10, 7, 0, 0),
                 child: Text(
-                  "Stock: ${shop.data?.product[index].stock}",
+                  "Stock: ${product[index].stock}",
                   style: TextStyle(fontSize: 14),
                 ),
               ),
@@ -79,7 +80,7 @@ class ItemContainer extends StatelessWidget {
                     icon: Icon(Icons.shopping_cart),
                   highlightColor: null,
                   onPressed: () {
-                     cartList?.add(shop.data?.product[index]);
+                     cartList.add(product[index]);
                       Cart(list:cartList);
                   },),
               ),
