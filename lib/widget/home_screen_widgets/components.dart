@@ -21,10 +21,12 @@ class _ComponentsState extends State<Components> {
   int _currentIndex = 0;
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
+
   final tabs = [
     Categories(),
     Cart(),
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,11 @@ class _ComponentsState extends State<Components> {
                             width: 50,
                             child: IconButton(
                               icon: Icon(Icons.settings, color: COLOR_BLACK),
-                              onPressed: null,
+                              onPressed: (){
+                                final snackBar = SnackBar(content: const Text("Making of settings in progress!"));
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              },
+
                               color: COLOR_BLACK,
                             ),
                           ),

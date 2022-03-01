@@ -22,22 +22,21 @@ class _GetCategoryState extends State<GetCategory> {
   List<Product> watch = [];
   List<Product> keyboard = [];
   List<Product> headset = [];
-  List<Product> currentCategory=[];
+  List<Product> currentCategory = [];
 
   int productIndex = 0;
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getCategoryList();
-    currentCategory = List.from(keyboard);
     print(currentCategory.length);
   }
 
   @override
   Widget build(BuildContext context) {
+    getCurrentCategory();
     return GridView.builder(
         physics: BouncingScrollPhysics(),
         itemCount: currentCategory.length,
@@ -47,48 +46,58 @@ class _GetCategoryState extends State<GetCategory> {
             crossAxisSpacing: 8,
             mainAxisSpacing: 8),
         itemBuilder: (context, index) {
+
           return Container(
               //TODO The item card looks shit and isn't consistent in different screen sizes.
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                   color: whiteColor, borderRadius: BorderRadius.circular(16)),
-              child: ItemContainer(widget.shop,index,currentCategory)
-          );
+              child: ItemContainer(widget.shop, index, currentCategory));
         });
+  }
+
+  getCurrentCategory() {
+    Future.delayed(const Duration(milliseconds: 2000), (){
+      setState(() {
+        // getCurrentCategory();
+        if ("${widget.category}" == "All") {
+          currentCategory = List.from(all);
+        } else if ("${widget.category}" == "Laptop") {
+          currentCategory = List.from(laptop);
+        } else if ("${widget.category}" == "Mobile") {
+          currentCategory = List.from(mobile);
+        } else if ("${widget.category}" == "Watch") {
+          currentCategory = List.from(watch);
+        } else if ("${widget.category}" == "Keyboard") {
+          currentCategory = List.from(keyboard);
+        } else if ("${widget.category}" == "Headset") {
+          currentCategory = List.from(headset);
+        }
+      });
+    });
   }
 
   getCategoryList() {
     int i = 0;
     int? length = widget.shop.data!.product.length;
-    while (i < length- 1) {
+    while (i < length) {
       if ("Category.LAPTOP" ==
           widget.shop.data?.product[i].category[1].toString()) {
         laptop.add(widget.shop.data!.product[i]);
-        currentCategory = List.from(laptop);
-        productIndex =i;
-      } else if ("Cateogry.MOBILE" ==
+      } else if ("Category.MOBILE" ==
           widget.shop.data?.product[i].category[1].toString()) {
         mobile.add(widget.shop.data!.product[i]);
-        currentCategory = List.from(laptop);
-        productIndex =i;
       } else if ("Category.KEYBOARD" ==
           widget.shop.data?.product[i].category[1].toString()) {
         keyboard.add(widget.shop.data!.product[i]);
-        currentCategory = List.from(laptop);
-        productIndex =i;
       } else if ("Category.WATCH" ==
           widget.shop.data?.product[i].category[1].toString()) {
         watch.add(widget.shop.data!.product[i]);
-        currentCategory = List.from(laptop);
-        productIndex =i;
-      } else if ("Category.HEADSET" ==
+      } else if ("Category.HEADSEAT" ==
           widget.shop.data?.product[i].category[1].toString()) {
         headset.add(widget.shop.data!.product[i]);
-        currentCategory = List.from(laptop);
-        productIndex =i;
       }
       all.add(widget.shop.data!.product[i]);
-      currentCategory = List.from(all);
       i++;
     }
   }
